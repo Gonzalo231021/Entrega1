@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [data, setShows] = useState(0)
+  const [shows, setShows] = useState([])
 
 
   useEffect(() => {
