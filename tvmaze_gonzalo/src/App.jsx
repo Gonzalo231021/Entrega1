@@ -1,14 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setShows] = useState(0)
+
+
+  useEffect(() => {
+  const url="https://api.tvmaze.com/shows?page=0"
+  fetch(url)
+    .then(response => response.json())
+    .then(data => setShows(data));
+  }, []);
 
   return (
     <>
-      <h1>Hola ANA!</h1>
+      <h1>Primera página:</h1>
+      <ul>
+        {shows.map((item) => (
+          <li key={item.id}>{item.name}</li>
+        ))}
+      </ul>
     </>
   )
 }
