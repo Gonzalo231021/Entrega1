@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './components/Header/Header.jsx'
 
 function App() {
   const [shows, setShows] = useState([])
@@ -16,7 +17,7 @@ function App() {
 
   return (
     <>
-      <h1>Primera página:</h1>
+    <Header />
       <ul>
         {shows.map((item) => (
           <li key={item.id}>{item.name}</li>
