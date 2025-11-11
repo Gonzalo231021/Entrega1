@@ -9,6 +9,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedLetter, setSelectedLetter] = useState("")
   const [favoriteIds, setFavoriteIds] = useState([])
+  const [showingFavorites, setShowingFavorites] = useState(false);
 
   //Carga inicial
   useEffect(() => {
@@ -61,15 +62,35 @@ function App() {
     ? shows.filter((show) =>
         show.name.toUpperCase().startsWith(selectedLetter.toUpperCase())
       )
-    : shows
+  : shows
 
+
+  //GESTION FAVORITOS
+
+  const handleFavoriteToggle = (id) => {
+    if (favoriteIds.includes(id)) {
+      setFavoriteIds(favoriteIds.filter(favId => favId !== id)); //Si ya está en favoritos, lo quitamos
+    } else {
+      setFavoriteIds([...favoriteIds, id]); //Si no está en favoritos, lo añadimos
+    }
+  };
+
+  const showFavorites = () => {
+    if (!showingFavorites) {
+      const favoriteShows = shows.filter(show => favoriteIds.includes(show.id));
+      setShows(favoriteShows);
+    } else {
+      setShows(initialShows); // o lo que sea tu lista original
+    }
+    setShowingFavorites(!showingFavorites);
+};
 
 
 
   
   return (
     <>
-    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites}/>
+    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites}/>
         <ShowGrid 
           shows={filterByLetter} 
           onFavoriteToggle={handleFavoriteToggle} 

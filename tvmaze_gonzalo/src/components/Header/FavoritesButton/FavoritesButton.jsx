@@ -1,8 +1,8 @@
-export default function FavoritesButton({ showFavorites }){
+export default function FavoritesButton({ showFavorites, showingFavorites }){
     const handleOnClick = () => {
         showFavorites()
     }
     return(
-        <button onClick={handleOnClick}>Favoritos</button>
+        <button onClick={handleOnClick}>{showingFavorites ? "❤️ Favoritos" : "🤍 Favoritos"}</button>
     )
 }
