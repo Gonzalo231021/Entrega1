@@ -3,17 +3,17 @@ import FavoritesButton from "./FavoritesButton/FavoritesButton"
 import FilterSort from "./FilterSort/FilterSort"
 import LettersFilter from "./LettersFilter/LettersFilter"
 import "./Header.css"
-export default function Header() {
+export default function Header({onSearch , onLetterFilter}){
     return (
         <header>
             <div className="header-top">
                 <h1 className="header-title">TV Maze App</h1>
-                <SearchBar />
+                <SearchBar onSearch={onSearch}/>
                 <FavoritesButton />
                 <FilterSort />
             </div>
             <div className="header-bottom">
-                <LettersFilter />
+                <LettersFilter onLetterFilter={onLetterFilter}/>
             </div>
         </header>
     )

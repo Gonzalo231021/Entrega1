@@ -1,5 +1,5 @@
 import "./LettersFilter.css"
-export default function LettersFilter(){
+export default function LettersFilter({onLetterFilter}){
     const letters = []; //Array vacio de letras
 
     //Generamos letra de la A a la Z usando codigo ASCII (A=65, Z=90)
@@ -10,7 +10,7 @@ export default function LettersFilter(){
     return ( 
         <div>
             {letters.map((letter) => (
-                <button key={letter} >{letter}</button>
+                <button key={letter} onClick={() => onLetterFilter(letter)}>{letter}</button>
             ))}
         </div>
     )
