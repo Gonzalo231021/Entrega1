@@ -1,0 +1,50 @@
+.show-card {
+  background-color: #111;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px;
+  color: white;
+  transition: transform 0.2s ease;
+}
+
+.show-card:hover {
+  transform: scale(1.05);
+}
+
+.show-card img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.show-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* deja el icono a la derecha */
+  margin-top: 8px;
+}
+
+/* Título */
+.show-title {
+  flex: 1;                /* ocupa todo el espacio posible */
+  margin: 0;
+  text-align: left;
+  font-size: 1rem;
+  white-space: nowrap;    /* evita saltos de línea si es corto */
+  overflow: hidden;       /* evita que se solape con el icono */
+  text-overflow: ellipsis;/* pone “...” si es muy largo */
+}
+
+/* Botón del corazón */
+.favorite-btn {
+  background: none;
+  border: none;
+  color: #ff5c5c;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-left: 6px; /* un pequeño margen respecto al texto */
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.15);
+}

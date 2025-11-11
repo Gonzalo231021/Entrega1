@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import ShowGrid from './components/ShowGrid/ShowGrid.jsx'
 import Header from './components/Header/Header.jsx'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [initialShows, setInitialShows] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedLetter, setSelectedLetter] = useState("")
+  const [favoriteIds, setFavoriteIds] = useState([])
 
   //Carga inicial
   useEffect(() => {
@@ -56,23 +58,24 @@ function App() {
   }
 
   const filterByLetter = selectedLetter
-    ? initialShows.filter((show) =>
-        show.name.toUpperCase().startsWith(selectedLetter)
+    ? shows.filter((show) =>
+        show.name.toUpperCase().startsWith(selectedLetter.toUpperCase())
       )
-  : initialShows
+    : shows
 
 
 
 
-
+  
   return (
     <>
-    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter}/>
-      <ul>
-        {filterByLetter.map((item) => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
+    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites}/>
+        <ShowGrid 
+          shows={filterByLetter} 
+          onFavoriteToggle={handleFavoriteToggle} 
+          favoriteIds={favoriteIds} 
+        />
+      
     </>
   )
 }
