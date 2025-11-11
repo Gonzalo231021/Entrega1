@@ -1,7 +1,11 @@
 header-title {
     color: #ffffff;
-    text-align: center;
-    padding: 20px;
-    background-color: #282c34;
+    padding: 40px;
     font-size: 2em;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
