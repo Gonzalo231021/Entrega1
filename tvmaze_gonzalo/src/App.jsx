@@ -9,10 +9,10 @@ function App() {
 
 
   useEffect(() => {
-  const url="https://api.tvmaze.com/shows?page=0"
-  fetch(url)
-    .then(response => response.json())
-    .then(data => setShows(data));
+    const url="https://api.tvmaze.com/shows?page=0"
+    fetch(url)
+      .then(response => response.json())
+      .then(data => setShows(data));
   }, []);
 
   return (

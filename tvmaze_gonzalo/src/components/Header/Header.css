@@ -4,7 +4,7 @@ header-title {
     font-size: 2em;
 }
 
-header {
+.header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
