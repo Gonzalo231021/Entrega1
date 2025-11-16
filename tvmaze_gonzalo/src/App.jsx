@@ -101,7 +101,7 @@ function App() {
   
   return (
     <>
-    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites}/>
+    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites} selectedLetter={selectedLetter} />
         
         {/*Mostramos detalle o grid segun si hay una serie seleccionada*/}
         {selectedShow ? (

@@ -19,9 +19,9 @@ export default function SearchBar({onSearch}){
         }
     }
     return(
-        <div>
+        <div className="search-bar">
             <input className="buscador" type="text" onChange={handleChange} value={searchTerm} placeholder="Buscar series..." onKeyDown={handleKeyDown} />
-            <button onClick={handleClick}>Buscar</button>
+            <button className="search-button" onClick={handleClick}>Buscar</button>
         </div>
     )
 }

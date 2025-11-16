@@ -1,0 +1,19 @@
+.filter-sort {
+  display: flex;
+  align-items: center;
+}
+
+.filter-sort-btn {
+  background-color: #333;
+  border: 1px solid #666;
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.filter-sort-btn:hover {
+  background-color: #555;
+}

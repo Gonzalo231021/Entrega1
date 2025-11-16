@@ -1,0 +1,44 @@
+.letters-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.3rem;
+  flex-wrap: nowrap;
+  margin-top: 0.25rem;
+}
+
+/* Botones más pequeños y compactos */
+.letter-btn {
+  background-color: #333;
+  border: 1px solid #444;
+  color: white;
+  padding: 0.25rem 0.85rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1.5rem;     /* más pequeño */
+  transition: 0.2s ease;
+}
+
+.letter-btn:hover {
+  background-color: #555;
+}
+
+/* ===== SOLO EN MÓVIL ===== */
+@media (max-width: 768px) {
+  .letters-filter {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Ocultamos la barra de scroll en Chrome/Safari */
+  .letters-filter::-webkit-scrollbar {
+    display: none;
+  }
+}
+/* Estado seleccionado */
+.letter-btn.active {
+  background-color: #6a4cff;
+  border-color: #6a4cff;
+  color: white;
+  font-weight: bold;
+}

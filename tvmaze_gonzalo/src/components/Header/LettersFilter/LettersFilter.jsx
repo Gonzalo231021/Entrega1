@@ -1,16 +1,21 @@
 import "./LettersFilter.css"
-export default function LettersFilter({onLetterFilter}){
-    const letters = []; //Array vacio de letras
 
-    //Generamos letra de la A a la Z usando codigo ASCII (A=65, Z=90)
-    for (let i = 65; i <= 90; i++) {
-        letters.push(String.fromCharCode(i));
-    }
+export default function LettersFilter({ onLetterFilter, selectedLetter }) {
 
-    return ( 
-        <div>
-            {letters.map((letter) => (
-                <button key={letter} onClick={() => onLetterFilter(letter)}>{letter}</button>
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
+
+    return (
+        <div className="letters-filter">
+            {letters.map(letter => (
+                <button 
+                    key={letter}
+                    className={
+                        `letter-btn ${selectedLetter === letter ? "active" : ""}`
+                    }
+                    onClick={() => onLetterFilter(letter)}
+                >
+                    {letter}
+                </button>
             ))}
         </div>
     )

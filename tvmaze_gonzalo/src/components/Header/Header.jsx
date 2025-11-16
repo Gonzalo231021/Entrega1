@@ -3,9 +3,9 @@ import FavoritesButton from "./FavoritesButton/FavoritesButton"
 import FilterSort from "./FilterSort/FilterSort"
 import LettersFilter from "./LettersFilter/LettersFilter"
 import "./Header.css"
-export default function Header({onSearch , onLetterFilter, showFavorites, showingFavorites}){
+export default function Header({onSearch , onLetterFilter, showFavorites, showingFavorites, selectedLetter}){
     return (
-        <header>
+        <header className="header">
             <div className="header-top">
                 <h1 className="header-title">TV Maze App</h1>
                 <SearchBar onSearch={onSearch}/>
@@ -13,7 +13,7 @@ export default function Header({onSearch , onLetterFilter, showFavorites, showin
                 <FilterSort />
             </div>
             <div className="header-bottom">
-                <LettersFilter onLetterFilter={onLetterFilter}/>
+                <LettersFilter onLetterFilter={onLetterFilter} selectedLetter={selectedLetter} />
             </div>
         </header>
     )

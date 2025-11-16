@@ -1,7 +1,7 @@
 export default function FilterSort(){
     return (
-        <div>
-            <button>Filtrar y Ordenar</button>
+        <div className="filter-sort">
+            <button className="filter-sort-btn">Filtrar y Ordenar</button>
         </div>
     )
 }

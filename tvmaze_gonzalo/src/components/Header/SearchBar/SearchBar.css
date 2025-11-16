@@ -1,7 +1,35 @@
-buscador {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 8px;
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.buscador {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #111;
+  color: white;
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: #888;
+}
+
+.search-button {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #666;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.search-button:hover {
+  background-color: #555;
 }

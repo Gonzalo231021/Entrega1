@@ -3,6 +3,6 @@ export default function FavoritesButton({ showFavorites, showingFavorites }){
         showFavorites()
     }
     return(
-        <button onClick={handleOnClick}>{showingFavorites ? "❤️ Favoritos" : "🤍 Favoritos"}</button>
+        <button  className={`favorites-btn ${showingFavorites ? "fav-active" : ""}`} onClick={handleOnClick}>{showingFavorites ? "❤️ Favoritos" : "🤍 Favoritos"}</button>
     )
 }
