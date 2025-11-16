@@ -1,10 +1,20 @@
 .search-bar {
+  position: relative;              /* ⬅️ para que las sugerencias se posicionen respecto a este bloque */
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.3rem;
   flex: 1;
 }
 
+/* CONTENEDOR INPUT + BOTON */
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* INPUT PRINCIPAL */
 .buscador {
   flex: 1;
   padding: 0.5rem 0.75rem;
@@ -19,6 +29,7 @@
   border-color: #888;
 }
 
+/* BOTON BUSCAR */
 .search-button {
   padding: 0.5rem 0.8rem;
   border-radius: 6px;
@@ -32,4 +43,38 @@
 
 .search-button:hover {
   background-color: #555;
+}
+
+/* ===== SUGERENCIAS ===== */
+
+.search-suggestions {
+  position: absolute;          /* ⬅️ ahora flotan sobre el resto */
+  top: 110%;                   /* un pelín por debajo del input */
+  left: 0;
+  right: 0;
+
+  z-index: 20;                 /* por encima del grid de series */
+  margin: 0;
+  padding: 0.3rem 0;
+  list-style: none;
+
+  background-color: #1b1b1b;
+  border-radius: 6px;
+  border: 1px solid #333;
+
+  font-size: 0.8rem;
+  color: #ccc;
+
+  max-height: 220px;           /* por si hay muchas */
+  overflow-y: auto;
+}
+
+.search-suggestion-item {
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}
+
+.search-suggestion-item:hover {
+  background-color: #333;
+  color: #fff;
 }

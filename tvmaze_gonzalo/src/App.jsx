@@ -17,6 +17,19 @@ function App() {
   const [showingFavorites, setShowingFavorites] = useState(false);
   const [selectedShow, setSelectedShow] = useState(null);
 
+    //FILTRO Y ORDENACION
+  const [sortOption, setSortOption] = useState("none")
+  const [minRating, setMinRating] = useState(null)
+
+    const handleSortChange = (option) => {
+    setSortOption(option)
+  }
+
+    const handleMinRatingChange = (value) => {
+    setMinRating(value)
+  }
+
+
   //Carga inicial
   useEffect(() => {
     const url="https://api.tvmaze.com/shows?page=0"
@@ -75,6 +88,28 @@ function App() {
       )
   : shows
 
+    //APLICAMOS FILTRO DE RATING Y ORDENACION
+  let processedShows = filterByLetter.slice()
+
+  //FILTRO POR RATING MINIMO
+  if (minRating !== null) {
+    processedShows = processedShows.filter((show) => {
+      const rating = show.rating?.average ?? 0
+      return rating >= minRating
+    })
+  }
+
+  //ORDENACION
+  if (sortOption === "name-asc") {
+    processedShows.sort((a, b) => a.name.localeCompare(b.name))
+  } else if (sortOption === "name-desc") {
+    processedShows.sort((a, b) => b.name.localeCompare(a.name))
+  } else if (sortOption === "rating-desc") {
+    processedShows.sort((a, b) => (b.rating?.average ?? 0) - (a.rating?.average ?? 0))
+  } else if (sortOption === "rating-asc") {
+    processedShows.sort((a, b) => (a.rating?.average ?? 0) - (b.rating?.average ?? 0))
+  }
+
 
   //GESTION FAVORITOS
 
@@ -94,6 +129,7 @@ function App() {
       setShows(initialShows); // o lo que sea tu lista original
     }
     setShowingFavorites(!showingFavorites);
+    
 };
 
 
@@ -101,7 +137,7 @@ function App() {
   
   return (
     <>
-    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites} selectedLetter={selectedLetter} />
+    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites} selectedLetter={selectedLetter} sortOption={sortOption} onSortChange={handleSortChange} minRating={minRating} onMinRatingChange={handleMinRatingChange} />
         
         {/*Mostramos detalle o grid segun si hay una serie seleccionada*/}
         {selectedShow ? (
@@ -113,7 +149,7 @@ function App() {
         />
         ) : (
         <ShowGrid 
-          shows={filterByLetter} 
+          shows={processedShows} 
           onFavoriteToggle={handleFavoriteToggle} 
           favoriteIds={favoriteIds} 
           onClickShow={setSelectedShow}
