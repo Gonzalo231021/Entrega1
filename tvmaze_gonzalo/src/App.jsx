@@ -17,9 +17,35 @@ function App() {
   const [showingFavorites, setShowingFavorites] = useState(false);
   const [selectedShow, setSelectedShow] = useState(null);
 
-    //FILTRO Y ORDENACION
+  //PAGINACION
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 20 //NUMERO DE SERIES POR PAGINA
+
+  //FILTRO Y ORDENACION
   const [sortOption, setSortOption] = useState("none")
   const [minRating, setMinRating] = useState(null)
+
+  //FILTRO POR GENERO E IDIOMA
+  const [genreFilter, setGenreFilter] = useState("all")
+  const [languageFilter, setLanguageFilter] = useState("all")
+  
+    //LISTA DE GENEROS DISPONIBLES
+  const availableGenres = Array.from(
+    new Set(
+      initialShows.flatMap((show) => show.genres || [])
+    )
+  ).sort()
+
+  //LISTA DE IDIOMAS DISPONIBLES
+  const availableLanguages = Array.from(
+    new Set(
+      initialShows
+        .map((show) => show.language)
+        .filter((lang) => !!lang)
+    )
+  ).sort()
+
+
 
     const handleSortChange = (option) => {
     setSortOption(option)
@@ -28,6 +54,17 @@ function App() {
     const handleMinRatingChange = (value) => {
     setMinRating(value)
   }
+
+    //CAMBIO DE GENERO
+  const handleGenreChange = (genre) => {
+    setGenreFilter(genre)
+  }
+
+  //CAMBIO DE IDIOMA
+  const handleLanguageChange = (language) => {
+    setLanguageFilter(language)
+  }
+
 
 
   //Carga inicial
@@ -98,6 +135,19 @@ function App() {
       return rating >= minRating
     })
   }
+  //FILTRO POR GENERO
+  if (genreFilter !== "all") {
+    processedShows = processedShows.filter((show) =>
+      (show.genres || []).includes(genreFilter)
+    )
+  }
+
+  //FILTRO POR IDIOMA
+  if (languageFilter !== "all") {
+    processedShows = processedShows.filter(
+      (show) => show.language === languageFilter
+    )
+  }
 
   //ORDENACION
   if (sortOption === "name-asc") {
@@ -109,6 +159,18 @@ function App() {
   } else if (sortOption === "rating-asc") {
     processedShows.sort((a, b) => (a.rating?.average ?? 0) - (b.rating?.average ?? 0))
   }
+
+
+  //CALCULAMOS PAGINACION
+  const totalPages = Math.max(1, Math.ceil(processedShows.length / pageSize))
+
+  //AJUSTAMOS LA PAGINA ACTUAL SI NOS PASAMOS (POR EJEMPLO AL CAMBIAR FILTROS)
+  if (currentPage > totalPages) {
+    setCurrentPage(totalPages)
+  }
+
+  const startIndex = (currentPage - 1) * pageSize
+  const paginatedShows = processedShows.slice(startIndex, startIndex + pageSize)
 
 
   //GESTION FAVORITOS
@@ -137,24 +199,13 @@ function App() {
   
   return (
     <>
-    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites} selectedLetter={selectedLetter} sortOption={sortOption} onSortChange={handleSortChange} minRating={minRating} onMinRatingChange={handleMinRatingChange} />
+    <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites} selectedLetter={selectedLetter} sortOption={sortOption} onSortChange={handleSortChange} minRating={minRating} onMinRatingChange={handleMinRatingChange} genreFilter={genreFilter} onGenreChange={handleGenreChange} languageFilter={languageFilter} onLanguageChange={handleLanguageChange} availableGenres={availableGenres} availableLanguages={availableLanguages} />
         
         {/*Mostramos detalle o grid segun si hay una serie seleccionada*/}
         {selectedShow ? (
-        <ShowDetail 
-          show={selectedShow} 
-          onBack={() => setSelectedShow(null)} 
-          isFavorite={favoriteIds.includes(selectedShow.id)} 
-          onFavoriteToggle={handleFavoriteToggle}
-        />
+        <ShowDetail show={selectedShow} onBack={() => setSelectedShow(null)} isFavorite={favoriteIds.includes(selectedShow.id)} onFavoriteToggle={handleFavoriteToggle}/>
         ) : (
-        <ShowGrid 
-          shows={processedShows} 
-          onFavoriteToggle={handleFavoriteToggle} 
-          favoriteIds={favoriteIds} 
-          onClickShow={setSelectedShow}
-        />
-        )}
+        <ShowGrid shows={paginatedShows} onFavoriteToggle={handleFavoriteToggle}  favoriteIds={favoriteIds}  onClickShow={setSelectedShow} totalPages={totalPages} onPageChange={setCurrentPage} currentPage={currentPage} />)}
     </>
   )
 }

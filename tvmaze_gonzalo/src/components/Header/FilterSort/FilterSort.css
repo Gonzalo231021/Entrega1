@@ -1,5 +1,7 @@
 .filter-sort {
-  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;    
 }
 
 /* BOTON PRINCIPAL */
@@ -102,4 +104,19 @@
 
 .filter-close-btn:hover {
   background-color: #555;
+}
+.filter-select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #111;
+  color: #eee;
+  font-size: 0.85rem;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #888;
 }
