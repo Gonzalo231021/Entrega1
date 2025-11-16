@@ -8,7 +8,11 @@ function App() {
   const [initialShows, setInitialShows] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedLetter, setSelectedLetter] = useState("")
-  const [favoriteIds, setFavoriteIds] = useState([])
+  //Estado para favoritos, inicializado desde localStorage
+  const [favoriteIds, setFavoriteIds] = useState(() => {
+    const storedFavorites = localStorage.getItem('favoriteIds');
+    return storedFavorites ? JSON.parse(storedFavorites) : []
+  })
   const [showingFavorites, setShowingFavorites] = useState(false);
 
   //Carga inicial
@@ -19,6 +23,11 @@ function App() {
       .then((data) => {setShows(data); setInitialShows(data)});
   }, []);
 
+
+    // GUARDAR FAVORITOS EN LOCALSTORAGE
+  useEffect(() => {
+    localStorage.setItem('favoriteIds', JSON.stringify(favoriteIds))
+  }, [favoriteIds])
 
   //FILTRO BUSCADOR
 
