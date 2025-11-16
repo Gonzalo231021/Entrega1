@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import ShowGrid from './components/ShowGrid/ShowGrid.jsx'
 import Header from './components/Header/Header.jsx'
+import ShowDetail from './components/ShowDetail/ShowDetail.jsx'
 
 function App() {
   const [shows, setShows] = useState([])
@@ -14,6 +15,7 @@ function App() {
     return storedFavorites ? JSON.parse(storedFavorites) : []
   })
   const [showingFavorites, setShowingFavorites] = useState(false);
+  const [selectedShow, setSelectedShow] = useState(null);
 
   //Carga inicial
   useEffect(() => {
@@ -100,12 +102,23 @@ function App() {
   return (
     <>
     <Header onSearch={handleSearch} onLetterFilter={handleLetterFilter} showFavorites={showFavorites} showingFavorites={showingFavorites}/>
+        
+        {/*Mostramos detalle o grid segun si hay una serie seleccionada*/}
+        {selectedShow ? (
+        <ShowDetail 
+          show={selectedShow} 
+          onBack={() => setSelectedShow(null)} 
+          isFavorite={favoriteIds.includes(selectedShow.id)} 
+          onFavoriteToggle={handleFavoriteToggle}
+        />
+        ) : (
         <ShowGrid 
           shows={filterByLetter} 
           onFavoriteToggle={handleFavoriteToggle} 
           favoriteIds={favoriteIds} 
+          onClickShow={setSelectedShow}
         />
-      
+        )}
     </>
   )
 }

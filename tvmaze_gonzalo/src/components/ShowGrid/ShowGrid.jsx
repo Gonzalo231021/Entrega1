@@ -1,6 +1,6 @@
 import ShowCard from "./ShowCard/ShowCard";
 import "./ShowGrid.css"
-export default function ShowGrid({shows, onFavoriteToggle, favoriteIds}){
+export default function ShowGrid({shows, onFavoriteToggle, favoriteIds, onClickShow}) {
     return (
         <div className="show-grid">
             {shows.map(show => (
@@ -9,6 +9,7 @@ export default function ShowGrid({shows, onFavoriteToggle, favoriteIds}){
                     show={show} 
                     onFavoriteToggle={onFavoriteToggle} 
                     isFavorite={favoriteIds.includes(show.id)} 
+                    onClickShow={onClickShow}
                 />
             ))}
         </div>
